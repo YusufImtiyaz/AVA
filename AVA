@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#080a12" />
+  <meta name="description" content="Meet AVA, a new kind of digital companion." />
+  <title>AVA — Intelligence, with a face</title>
+
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #080a12;
+      --panel: rgba(255,255,255,.045);
+      --line: rgba(255,255,255,.12);
+      --cyan: #79f4ff;
+      --purple: #a58bff;
+      --muted: #a5a9bb;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      background:
+        radial-gradient(ellipse at 78% 20%, #20204b 0, transparent 38%),
+        radial-gradient(ellipse at 10% 70%, #102a38 0, transparent 35%),
+        var(--bg);
+      color: #f8f9ff;
+      font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+      line-height: 1.6;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .nav {
+      max-width: 1200px;
+      margin: auto;
+      padding: 22px 6%;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 18px;
+    }
+
+    .logo {
+      font-size: 1.15rem;
+      font-weight: 800;
+      letter-spacing: .18em;
+    }
+
+    .logo span { color: var(--cyan); }
+
+    .nav-links {
+      display: flex;
+      gap: 26px;
+      color: var(--muted);
+      font-size: .9rem;
+    }
+
+    .hero {
+      width: min(1100px, 90%);
+      min-height: 76vh;
+      margin: auto;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      align-items: center;
+      gap: 50px;
+      padding: 55px 0 80px;
+    }
+
+    .eyebrow {
+      color: var(--cyan);
+      letter-spacing: .2em;
+      font-size: .73rem;
+      font-weight: 700;
+    }
+
+    h1 {
+      font-size: clamp(3rem, 6.5vw, 5.5rem);
+      line-height: 1.02;
+      letter-spacing: -.065em;
+      margin: 20px 0;
+    }
+
+    h1 span {
+      background: linear-gradient(110deg, var(--cyan), var(--purple));
+      color: transparent;
+      background-clip: text;
+      -webkit-background-clip: text;
+    }
+
+    .intro {
+      max-width: 460px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+
+    .actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 28px;
+    }
+
+    .btn {
+      padding: 12px 19px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .btn:hover { transform: translateY(-2px); }
+
+    .primary {
+      color: #071015;
+      font-weight: 750;
+      background: linear-gradient(110deg, var(--cyan), #b5a1ff);
+      border: 0;
+      box-shadow: 0 0 35px #79f4ff20;
+    }
+
+    .avatar-card {
+      min-height: 430px;
+      border: 1px solid #b5b2ff2b;
+      border-radius: 28px;
+      background:
+        radial-gradient(ellipse at 50% 30%, #34376870, transparent 55%),
+        rgba(255,255,255,.025);
+      padding: 16px;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 25px 100px #0005;
+    }
+
+    .avatar-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      font-size: .75rem;
+      color: var(--muted);
+      padding: 4px 5px 14px;
+    }
+
+    .status { color: var(--cyan); }
+
+    .avatar-frame {
+      height: 350px;
+      overflow: hidden;
+      border-radius: 19px;
+      background: #101322;
+      display: grid;
+      place-items: center;
+    }
+
+    .avatar-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+      background: transparent;
+    }
+
+    .placeholder {
+      padding: 24px;
+      text-align: center;
+      max-width: 310px;
+      color: var(--muted);
+    }
+
+    .orb {
+      width: 92px;
+      height: 92px;
+      border-radius: 50%;
+      margin: 0 auto 22px;
+      background: radial-gradient(circle at 35% 30%, #fff, var(--cyan) 20%, #7667e9 55%, #17162d 75%);
+      box-shadow: 0 0 70px #887bff50;
+      animation: float 4s ease-in-out infinite;
+    }
+
+    .placeholder strong {
+      color: #fff;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    .placeholder code {
+      color: var(--cyan);
+      overflow-wrap: anywhere;
+    }
+
+    section.info {
+      max-width: 1100px;
+      width: 90%;
+      margin: 30px auto 100px;
+    }
+
+    .section-title {
+      font-size: clamp(2rem, 4vw, 3.3rem);
+      letter-spacing: -.04em;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-top: 28px;
+    }
+
+    .feature {
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      background: var(--panel);
+    }
+
+    .feature .symbol {
+      color: var(--cyan);
+      font-size: 1.5rem;
+    }
+
+    .feature p, .info-copy { color: var(--muted); }
+
+    footer {
+      border-top: 1px solid var(--line);
+      padding: 28px 5%;
+      color: var(--muted);
+      text-align: center;
+      font-size: .85rem;
+    }
+
+    @keyframes float {
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+
+    @media (max-width: 760px) {
+      .nav-links { display: none; }
+      .hero {
+        grid-template-columns: 1fr;
+        gap: 32px;
+        padding-top: 40px;
+      }
+      .avatar-card { min-height: 400px; }
+      .avatar-frame { height: 325px; }
+      .cards { grid-template-columns: 1fr; }
+      h1 { font-size: clamp(3rem, 13vw, 4.5rem); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important;
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <nav class="nav">
+    <a class="logo" href="#" aria-label="AVA home">AV<span>A.</span></a>
+    <div class="nav-links">
+      <a href="#experience">Experience</a>
+      <a href="#capabilities">Capabilities</a>
+      <a href="#about">About</a>
+    </div>
+    <a class="btn" href="#experience">Meet AVA ↗</a>
+  </nav>
+
+  <main>
+    <section class="hero">
+      <div>
+        <div class="eyebrow">A NEW KIND OF DIGITAL PRESENCE</div>
+        <h1>Intelligence,<br />with a <span>face.</span></h1>
+        <p class="intro">
+          Meet AVA — a digital companion designed to make
+          conversations feel more human. One question can
+          open up a whole new world.
+        </p>
+        <div class="actions">
+          <a class="btn primary" href="#experience">Start exploring ↗</a>
+          <a class="btn" href="#capabilities">Discover AVA</a>
+        </div>
+      </div>
+
+      <div class="avatar-card" id="experience">
+        <div class="avatar-top">
+          <span>AVA / LIVE EXPERIENCE</span>
+          <span class="status">● AVATAR PANEL</span>
+        </div>
+
+        <div class="avatar-frame" id="avatar-frame">
+          <div class="placeholder">
+            <div class="orb"></div>
+            <strong>Your avatar goes here</strong>
+            Add the official OpenSpline Cloud embed URL
+            in the configuration section of this file.
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="info" id="capabilities">
+      <div class="eyebrow">DESIGNED FOR CONNECTION</div>
+      <h2 class="section-title">Beyond the ordinary interface.</h2>
+      <p class="info-copy">
+        An experiment in making digital interactions more
+        expressive, accessible, and engaging.
+      </p>
+
+      <div class="cards">
+        <article class="feature">
+          <div class="symbol">◉</div>
+          <h3>Natural conversation</h3>
+          <p>Bring a real conversational AI into a visually engaging experience.</p>
+        </article>
+        <article class="feature">
+          <div class="symbol">〰</div>
+          <h3>Expressive presence</h3>
+          <p>Connect speech with a face using the OpenSpline avatar pipeline.</p>
+        </article>
+        <article class="feature">
+          <div class="symbol">✳</div>
+          <h3>Built to explore</h3>
+          <p>A thoughtful interface that makes interacting with AI feel less ordinary.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="info" id="about">
+      <div class="eyebrow">THE IDEA</div>
+      <h2 class="section-title">Technology should feel human.</h2>
+      <p class="info-copy">
+        AVA explores a simple idea: what if interacting with
+        AI felt less like filling in a form and more like
+        meeting a helpful digital companion?
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    AVA — Beyond Human Interface · Built for the OpenSpline challenge
+  </footer>
+
+  <script>
+    // Paste the actual supported OpenSpline Cloud embed URL here.
+    // Leave empty until you have obtained it from OpenSpline.
+    const OPENSPLINE_EMBED_URL = "";
+
+    const frame = document.getElementById("avatar-frame");
+
+    if (OPENSPLINE_EMBED_URL.trim()) {
+      const iframe = document.createElement("iframe");
+      iframe.src = OPENSPLINE_EMBED_URL;
+      iframe.title = "AVA talking avatar";
+      iframe.allow = "autoplay; microphone";
+      iframe.loading = "lazy";
+      iframe.referrerPolicy = "strict-origin-when-cross-origin";
+      frame.replaceChildren(iframe);
+    }
+  </script>
+</body>
+</html>
